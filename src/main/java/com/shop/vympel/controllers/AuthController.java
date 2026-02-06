@@ -1,6 +1,7 @@
 package com.shop.vympel.controllers;
 
 import com.shop.vympel.dtos.auth.AuthResponse;
+import com.shop.vympel.dtos.auth.LoginByEmailRequest;
 import com.shop.vympel.dtos.auth.RegisterByEmailRequest;
 import com.shop.vympel.services.AuthService;
 import jakarta.validation.Valid;
@@ -30,4 +31,12 @@ public class AuthController {
                 .body(authService.register(req));
     }
 
+    @PostMapping("/login/email")
+    public ResponseEntity<AuthResponse> login(
+            @RequestBody @Valid LoginByEmailRequest req
+    ) throws IllegalArgumentException {
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .body(authService.login(req));
+    }
 }
