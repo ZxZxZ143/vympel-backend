@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+          http://www.liquibase.org/xml/ns/dbchangelog
+          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd">
+
+    <include file="db/changelog/001_init_schema.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/002_seed_dictionaries.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/003_seed_watch_features.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/2026-02-06-01-users-email-optional.xml" relativeToChangelogFile="false" />
+</databaseChangeLog>
