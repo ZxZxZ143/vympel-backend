@@ -6,10 +6,6 @@
           http://www.liquibase.org/xml/ns/dbchangelog
           http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd">
 
-    <!-- =========================
-         USERS / ROLES
-    ========================== -->
-
     <changeSet id="001-001-create-user" author="admin">
         <createTable tableName="users">
             <column name="id" type="BIGSERIAL">

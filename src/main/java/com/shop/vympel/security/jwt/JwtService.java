@@ -6,6 +6,7 @@ import io.jsonwebtoken.security.Keys;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -55,11 +56,11 @@ public class JwtService {
                 .getPayload();
 
         String subject = claims.getSubject();
-        String role = claims.get("role", String.class);
+        List<String> role = claims.get("roles", List.class);
         String type = claims.get("type", String.class);
 
         return new JwtClaims(subject, role, type);
     }
 
-    public record JwtClaims(String subject, String role, String type) {}
+    public record JwtClaims(String subject, List<String> role, String type) {}
 }

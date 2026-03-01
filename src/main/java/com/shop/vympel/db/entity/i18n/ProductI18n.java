@@ -27,9 +27,4 @@ public class ProductI18n {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "description", length = Integer.MAX_VALUE)
-    private String description;
-
-
 }

@@ -3,7 +3,7 @@ package com.shop.vympel.controllers;
 import com.shop.vympel.dtos.auth.AuthResponse;
 import com.shop.vympel.dtos.auth.LoginByEmailRequest;
 import com.shop.vympel.dtos.auth.RegisterByEmailRequest;
-import com.shop.vympel.services.AuthService;
+import com.shop.vympel.services.auth.AuthServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final AuthService authService;
+    private final AuthServiceImpl authServiceImpl;
 
     @Autowired
-    public AuthController(AuthService authService) {
-        this.authService = authService;
+    public AuthController(AuthServiceImpl authServiceImpl) {
+        this.authServiceImpl = authServiceImpl;
     }
 
     @PostMapping("/register/email")
@@ -28,7 +28,7 @@ public class AuthController {
     ) throws IllegalArgumentException {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(authService.register(req));
+                .body(authServiceImpl.register(req));
     }
 
     @PostMapping("/login/email")
@@ -37,6 +37,6 @@ public class AuthController {
     ) throws IllegalArgumentException {
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
-                .body(authService.login(req));
+                .body(authServiceImpl.login(req));
     }
 }

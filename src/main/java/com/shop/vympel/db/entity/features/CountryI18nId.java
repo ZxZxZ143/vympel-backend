@@ -1,4 +1,4 @@
-package com.shop.vympel.db.entity.i18n;
+package com.shop.vympel.db.entity.features;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

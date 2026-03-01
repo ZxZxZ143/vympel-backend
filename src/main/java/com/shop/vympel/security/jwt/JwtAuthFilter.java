@@ -11,7 +11,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class JwtAuthFilter extends OncePerRequestFilter {
 
@@ -21,13 +23,22 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         this.jwtService = jwtService;
     }
 
-
     @Override
-    protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain chain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain chain
+    ) throws ServletException, IOException {
 
         String header = request.getHeader("Authorization");
+
         if (header == null || !header.startsWith("Bearer ")) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        // Если аутентификация уже есть — не трогаем
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
             chain.doFilter(request, response);
             return;
         }
@@ -42,15 +53,27 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 return;
             }
 
-            String role = claims.role();
+            List<String> roles = claims.role();
+            if (roles == null) roles = Collections.emptyList();
+
+            var authorities = roles.stream()
+                    .filter(Objects::nonNull)
+                    .map(String::trim)
+                    .filter(s -> !s.isBlank())
+                    .map(r -> r.startsWith("ROLE_") ? r : "ROLE_" + r)
+                    .distinct()
+                    .map(SimpleGrantedAuthority::new)
+                    .toList();
+
             var auth = new UsernamePasswordAuthenticationToken(
                     claims.subject(),
                     null,
-                    List.of(new SimpleGrantedAuthority("ROLE_" + role))
+                    authorities
             );
 
             SecurityContextHolder.getContext().setAuthentication(auth);
             chain.doFilter(request, response);
+
         } catch (Exception ex) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");

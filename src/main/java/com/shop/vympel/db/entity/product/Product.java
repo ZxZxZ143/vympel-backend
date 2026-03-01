@@ -1,12 +1,15 @@
 package com.shop.vympel.db.entity.product;
 
 import com.shop.vympel.db.entity.features.Brand;
+import com.shop.vympel.db.entity.features.Collection;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -41,7 +44,7 @@ public class Product {
     private String productType;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
@@ -55,5 +58,21 @@ public class Product {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "collection_id")
+    private Collection collection;
+
+    @PrePersist
+    public void prePersist() {
+        var now = Instant.now();
+        if (createdAt == null) createdAt = now;
+        if (updatedAt == null) updatedAt = now;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = Instant.now();
+    }
 
 }

@@ -10,4 +10,14 @@
     <include file="db/changelog/002_seed_dictionaries.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/003_seed_watch_features.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/2026-02-06-01-users-email-optional.xml" relativeToChangelogFile="false" />
+    <include file="db/changelog/2026-02-08-01-add-collections-and-product-markdown-description.xml" relativeToChangelogFile="false" />
+    <include file="db/changelog/2026-02-08-02-brand-name.xml" relativeToChangelogFile="false" />
+    <include file="db/changelog/2026-02-08-03-seed-countries.xml" relativeToChangelogFile="false" />
+    <include file="db/changelog/2026-02-08-04-seed-brands-with-countries.xml" relativeToChangelogFile="false" />
+    <include file="db/changelog/2026-02-08-05-remove-country-from-brand.xml" relativeToChangelogFile="false" />
+    <include file="db/changelog/2026-02-08-06-drop-role-i18n.xml" relativeToChangelogFile="false" />
+    <include file="db/changelog/2026-02-13-01-seed-categories.xml" relativeToChangelogFile="false" />
+    <include file="db/changelog/2026-03-01-01-remove-description-product-i18n.xml" relativeToChangelogFile="false" />
+    <include file="db/changelog/2026-03-01-02-fix-product-description-constraint.xml" relativeToChangelogFile="false" />
+    <include file="db/changelog/2026-03-02-01-fix-category-i18n-constraint.xml" relativeToChangelogFile="false" />
 </databaseChangeLog>

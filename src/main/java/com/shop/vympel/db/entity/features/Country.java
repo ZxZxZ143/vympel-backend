@@ -17,9 +17,9 @@ public class Country {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Size(max = 10)
+    @Size(max = 100)
     @NotNull
-    @Column(name = "code", nullable = false, length = 10)
+    @Column(name = "code", nullable = false, length = 100)
     private String code;
 
     @Size(max = 2)

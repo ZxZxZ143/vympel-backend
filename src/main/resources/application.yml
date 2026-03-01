@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: vympel
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vympel_db
+    username: postgres
+    password: 123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    open-in-view: false
+
+    hibernate:
+      ddl-auto: validate
+      format_sql: true
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: warn
+
+      type:
+        descriptor:
+          sql: warn
+
+security:
+  jwt:
+    secret: IJBJLHFBVFBV3456789KJVBJ876VFJH(YGV&
+    access-ttl-min: 15
+    refresh-ttl-days: 14
+
+server:
+  port: 8080
+
+storage:
+  s3:
+    bucket: dev-backet
+    region: us-east-1
+    endpoint: http://localhost:9000
+    accessKey: minioadmin
+    secretKey: minioadmin123
+    pathStyle: true
+

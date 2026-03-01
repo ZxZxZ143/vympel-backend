@@ -1,6 +1,5 @@
-package com.shop.vympel.db.entity.i18n;
+package com.shop.vympel.db.entity.features;
 
-import com.shop.vympel.db.entity.auth.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -12,16 +11,16 @@ import org.hibernate.annotations.OnDeleteAction;
 @Getter
 @Setter
 @Entity
-@Table(name = "role_i18n")
-public class RoleI18n {
+@Table(name = "country_i18n")
+public class CountryI18n {
     @EmbeddedId
-    private RoleI18nId id;
+    private CountryI18nId id;
 
-    @MapsId("roleId")
+    @MapsId("countryId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    @JoinColumn(name = "country_id", nullable = false)
+    private Country country;
 
     @Size(max = 255)
     @NotNull

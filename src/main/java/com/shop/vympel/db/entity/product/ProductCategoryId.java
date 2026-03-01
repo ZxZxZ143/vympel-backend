@@ -22,6 +22,4 @@ public class ProductCategoryId implements Serializable {
     @NotNull
     @Column(name = "category_id", nullable = false)
     private Long categoryId;
-
-
 }

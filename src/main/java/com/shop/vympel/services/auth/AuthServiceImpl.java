@@ -1,4 +1,4 @@
-package com.shop.vympel.services;
+package com.shop.vympel.services.auth;
 
 import com.shop.vympel.db.entity.auth.Role;
 import com.shop.vympel.db.entity.auth.User;
@@ -9,6 +9,7 @@ import com.shop.vympel.db.repositories.UserRoleRepository;
 import com.shop.vympel.dtos.auth.AuthResponse;
 import com.shop.vympel.dtos.auth.LoginByEmailRequest;
 import com.shop.vympel.dtos.auth.RegisterByEmailRequest;
+import com.shop.vympel.enums.RoleCode;
 import com.shop.vympel.mappers.UserMapper;
 import com.shop.vympel.security.jwt.JwtService;
 import jakarta.transaction.Transactional;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -30,6 +31,7 @@ public class AuthService {
     private final UserRoleRepository userRoleRepository;
     private final RoleRepository roleRepository;
 
+    @Override
     @Transactional
     public AuthResponse register(RegisterByEmailRequest req) throws IllegalArgumentException {
         String email = req.getEmail();
@@ -42,7 +44,7 @@ public class AuthService {
         User newUser = userMapper.toEntity(req, passwordEncoder);
         userRepository.save(newUser);
 
-        Role role = roleRepository.getReferenceById(2L);
+        Role role = roleRepository.getReferenceById((long) RoleCode.CUSTOMER.getCode());
 
         UserRole userRole = UserRole.of(newUser, role);
         userRoleRepository.save(userRole);
@@ -50,6 +52,7 @@ public class AuthService {
         return createTokens(String.valueOf(newUser.getId()), List.of(role.getCode()));
     }
 
+    @Override
     @Transactional
     public AuthResponse login(LoginByEmailRequest req) throws BadCredentialsException {
         User user = userRepository.findByEmail(req.getEmail()).orElseThrow(

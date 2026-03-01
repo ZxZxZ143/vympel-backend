@@ -22,14 +22,14 @@ public class Brand {
     @Column(name = "code", nullable = false, length = 100)
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "country_id")
-    private Country country;
-
     @NotNull
     @ColumnDefault("true")
     @Column(name = "active", nullable = false)
     private Boolean active;
+
+    @Size(max = 255)
+    @Column(name = "name")
+    private String name;
 
 
 }

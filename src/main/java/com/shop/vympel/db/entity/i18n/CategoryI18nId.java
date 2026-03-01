@@ -4,9 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -14,6 +12,8 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 @Embeddable
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class CategoryI18nId implements Serializable {
     private static final long serialVersionUID = 5397737454668625445L;
     @NotNull
@@ -24,6 +24,4 @@ public class CategoryI18nId implements Serializable {
     @NotNull
     @Column(name = "lang", nullable = false, length = 5)
     private String lang;
-
-
 }
